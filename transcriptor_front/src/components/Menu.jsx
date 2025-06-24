@@ -16,7 +16,7 @@ export const Menu = () => {
       </Link>
       <Link to="/texttospeech" >
         <Card
-        classH3="w-full bg-[#007bff] text-white text-center p-2 rounded-t-lg"
+        classH3="w-full bg-[#007bff] text-white text-center p-2 rounded-t-lg "
           titulo="NARRADOR"
           imagen="https://play-lh.googleusercontent.com/4l37HAsK0QR5EI3ioAMZbhU_vCVoXBH41fVhwhPvxPdQ8nO2hB8ye1_gtgKkaED-yjpG=w240-h480-rw"
           alt="caricatura que respresnta la transcripción"
