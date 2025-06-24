@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link
+      rel="shortcut icon"
+      href="https://cdn-icons-png.flaticon.com/512/5200/5200120.png"
+      type="image/x-icon"
+    />
+    <title>Transcripción de audiencias</title>
+  </head>
+  <body>
+    <header>
+      <h2>TRANSCRIPTOR DE AUDICENCIAS</h2>
+      <button id="themeToggle">
+        <img
+          class="icon-theme icon-moon"
+          src="./assets//images/sun.svg"
+          alt=""
+        />
+
+        <img
+          class="icon-theme icon-sun"
+          src="./assets//images/moon.svg"
+          alt=""
+        />
+      </button>
+    </header>
+
+    <div id="loadingOverlay" style="display: none">
+      <div id="loadingContainer">
+        <h4 id="loadingText">Cargando...</h4>
+        <div
+          style="
+            width: 100%;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+          "
+        >
+          <div
+            id="progressBar"
+            style="
+              width: 0%;
+              height: 100%;
+              background: #007bff;
+              transition: width 0.1s ease-out;
+            "
+          ></div>
+        </div>
+        <img
+          style="margin-top: 20px"
+          src="./assets/images/Loading_2.gif"
+          alt="animación de loading"
+          width="100px"
+          height="100px"
+        />
+      </div>
+      <p id="avisoProgress"></p>
+    </div>
+
+    <main>
+      <div class="div_adv">
+        <p style="font-weight: 600">Aviso Importante:</p>
+        <p>- Este sistema se encuentra en fase de pruebas.</p>
+        <p>
+          - El tiempo de transcripción varía dependiendo el tamaño del archivo y
+          el nivel de precisión seleccionado.
+        </p>
+        <p>
+          - La transcripción se realiza mediante inteligencia artificial y puede
+          contener errores u omisiones.
+        </p>
+        <p>
+          - Se recomienda verificar cuidadosamente el contenido de las
+          transcripciones generadas.
+        </p>
+        <p>
+          - El uso de esta herramienta y la validación de sus resultados son
+          responsabilidad exclusiva del usuario.
+        </p>
+      </div>
+
+      <section id="container">
+        <div class="cargaAudio">
+          <div id="drop-area" class="drop-area">
+            <input
+              type="file"
+              id="audioInput"
+              accept="audio/*,video/mp4,video/mpeg,video/webm"
+              style="display: none"
+            />
+            <label
+              class="drop-area-content"
+              for="openFileButton"
+              style="cursor: pointer"
+            >
+              <button id="openFileButton" class="open-file-button">
+                Haga click aquí o arrastre un archivo para cargarlo
+              </button>
+              <div class="upload-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 0 24 24"
+                  width="24px"
+                  fill="currentColor"
+                  class="upload-icon"
+                >
+                  <path d="M0 0h24v24H0V0z" fill="none" />
+                  <path
+                    d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"
+                  />
+                </svg>
+              </div>
+            </label>
+          </div>
+
+          <div id="file-list">
+            <p>No se ha seleccionado ningún archivo.</p>
+          </div>
+          <div id="divModelTranscribe">
+            <label for="" id="labelModel"
+              >Seleccionar nivel de precisión:
+              <select name="" id="selectModel" >
+                <option value="small">Bajo</option>
+                <option value="medium" selected>Medio</option>
+                <option value="large-v3">Alto</option>
+              </select>
+            </label>
+            <button id="btnTranscribir">Transcribir</button>
+          </div>
+        </div>
+
+        <div class="resultadoTranscripcion">
+          <h3 style="text-align: left; margin-bottom: 5px">
+            Resultado de la transcripción:
+          </h3>
+          <div id="btnsResult">
+            <span id="verText" style="display: none">Texto</span>
+            <span id="verSrt" style="display: none">Subtitulos</span>
+          </div>
+          <p id="resultado"></p>
+          <div class="selectFormat">
+            <div>
+              <label for="fileExtension">Formato:</label>
+              <select name="extension" id="fileExtension">
+                <option value="" disabled selected>Seleccione formato</option>
+
+                <option value="txt">.txt</option>
+                <option value="srt">.srt</option>
+              </select>
+            </div>
+            <a
+              id="btnDescargarTxt"
+              style="display: none"
+              download="transcripcion_resultado.txt"
+              >Descargar Transcripción</a
+            >
+          </div>
+
+          <p id="link"></p>
+        </div>
+      </section>
+      <section id="textToSpeechSection">
+        <h2>Conversión de Texto a Voz</h2>
+        <textarea
+          name="text"
+          id="textToSpeech"
+          cols="10"
+          rows="10"
+          placeholder="Escribe el texto a convertir en voz..."
+        ></textarea>
+        <div id="languageSelection">
+          <label for="selectLanguage" id="labelLanguage"
+            >Selecciona el idioma:
+            <select name="language" id="selectLanguage">
+              <option value="es">Español</option>
+              <option value="en">Inglés</option>
+              <option value="it">Italiano</option>
+            </select></label
+          >
+
+          <button id="btnCrearAudio">Generar audio</button>
+        </div>
+        <div id="audioControls" style="display: none; margin-top: 20px">
+          <h3>Audio Generado:</h3>
+
+          <audio id="audioPlayer" controls></audio>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="leyenda">
+        <p>Desarrollado por Sytec - Oficina de Sistemas y Tecnología</p>
+        <p>Secretaría de Informática</p>
+        <p>Cámara Nacional de Apelaciones en lo Civil</p>
+      </div>
+
+      <div class="logo">
+        <img
+          src="https://infocivil.pjn.gov.ar/img/logoSytec2.png"
+          alt="logo"
+          class="logo-img"
+        />
+      </div>
+    </footer>
+
+    <script type="module" src="/js/transcriptor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </body>
+</html>
