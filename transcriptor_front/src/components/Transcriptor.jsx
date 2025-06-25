@@ -33,7 +33,7 @@ function formatTimeForSrt(seconds) {
   );
 }
 
-export const Transcriptor = () => {
+export const Transcriptor = ({ isDark }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [lastTranscriptionData, setLastTranscriptionData] = useState(null);
   const [processingTextInterval, setProcessingTextInterval] = useState(null);
@@ -206,7 +206,7 @@ export const Transcriptor = () => {
         });
 
         const responsePromise = new Promise((resolve, reject) => {
-          xhr.open("POST", "http://5.5.4.39:5001/transcribir");
+          xhr.open("POST", "http://5.5.4.39:5001/api/transcribir");
           xhr.setRequestHeader("Accept", "application/json");
 
           xhr.onload = () => {
@@ -425,7 +425,7 @@ export const Transcriptor = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-evenly">
+    <div className="flex flex-col items-center justify-evenly dark:bg-neutral-800">
       {/* Overlay de Carga */}
       {loadingOverlayVisible && (
         <div
@@ -446,7 +446,7 @@ export const Transcriptor = () => {
           }}
         >
           <div
-          className="flex flex-col items-center justify-evenly"
+            className="flex flex-col items-center justify-evenly"
             id="loadingContainer"
             style={{
               backgroundColor: "#333",
@@ -486,17 +486,17 @@ export const Transcriptor = () => {
               height="100px"
             />
           </div>
-          <p id="avisoProgress" style={{ marginTop: "15px", color: "white" }}>
+          <p id="avisoProgress" style={{ marginTop: "15px", color: "black" }}>
             {avisoProgress}
           </p>
         </div>
       )}
 
-      <h2 className="text-2xl font-semibold pt-5">
+      <h2 className="text-2xl font-semibold pt-5 dark:text-white">
         TRANSCRIPTOR DE AUDIENCIAS
       </h2>
 
-      <div className="div_adv">
+      <div className="div_adv bg-[#ffffff] dark:bg-neutral-900 dark:text-white">
         <p style={{ fontWeight: 600 }}>Aviso Importante:</p>
         <p>- Este sistema se encuentra en fase de pruebas.</p>
         <p>
@@ -517,7 +517,10 @@ export const Transcriptor = () => {
         </p>
       </div>
 
-      <section id="container">
+      <section
+        id="container"
+        className="bg-[#ffffff] dark:bg-neutral-900 dark:text-white"
+      >
         <div className="cargaAudio">
           {/* Drop Area */}
           <div
@@ -581,7 +584,7 @@ export const Transcriptor = () => {
                 </p>
               </>
             ) : (
-              <p>No se ha seleccionado ningún archivo.</p>
+              <p className="">No se ha seleccionado ningún archivo.</p>
             )}
           </div>
 
@@ -593,17 +596,14 @@ export const Transcriptor = () => {
                 id="selectModel"
                 defaultValue="medium"
                 ref={selectModelRef}
+                className="dark:bg-neutral-900"
               >
                 <option value="small">Bajo</option>
                 <option value="medium">Medio</option>
                 <option value="large-v3">Alto</option>
               </select>
             </label>
-            <button
-              id="btnTranscribir"
-              onClick={handleTranscribeClick}
-              disabled={isTranscribing || !selectedFile}
-            >
+            <button id="btnTranscribir" onClick={handleTranscribeClick}>
               {isTranscribing ? "Transcribiendo..." : "Transcribir"}
             </button>
           </div>
@@ -658,6 +658,7 @@ export const Transcriptor = () => {
                   id="fileExtension"
                   value={downloadFormat}
                   onChange={(e) => setDownloadFormat(e.target.value)}
+                  className="dark:bg-neutral-900 dark:text-white"
                 >
                   <option value="first" disabled>
                     Seleccione formato

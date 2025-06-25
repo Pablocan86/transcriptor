@@ -17,14 +17,14 @@ import { Response } from 'express';
 import * as path from 'path';
 import * as fs from 'fs';
 
-@Controller('')
+@Controller('/api')
 export class AudioController {
   constructor(private readonly audioService: AudioService) {}
 
-  @Get('/hola')
-  getHola(): object {
-    return { success: true, message: 'Hola desde el servidor!' };
-  }
+  // @Get('/hola')
+  // getHola(): object {
+  //   return { success: true, message: 'Hola desde el servidor!' };
+  // }
 
   @Post('/transcribir')
   @UseInterceptors(
@@ -45,7 +45,10 @@ export class AudioController {
     }
 
     try {
-      const transcriptionResult = await this.audioService.transcribeAudio(file,modelSize);
+      const transcriptionResult = await this.audioService.transcribeAudio(
+        file,
+        modelSize,
+      );
 
       res.status(HttpStatus.OK).json(transcriptionResult);
     } catch (error) {
@@ -55,7 +58,7 @@ export class AudioController {
     }
   }
 
-  @Post('synthesize') // Define un endpoint POST en /synthesize
+  @Post('/synthesize') // Define un endpoint POST en /synthesize
   async synthesizeSpeech(
     @Body('text') text: string,
     @Body('language') language: string,

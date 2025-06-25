@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@custom-variant dark (&:where(.dark, .dark *));
 @import "tailwindcss";
 
 @font-face {
@@ -109,7 +109,7 @@ div[style*="width: 200px; height: 20px;"] {
   /* Modo Claro por defecto */
   --background-color: #f0f2f5c6;
   --background-color-div: #ffffff;
-  --background-text-area: rgb(237, 233, 233);
+  --background-text-area: #ede9e9;
   --header-background: linear-gradient(to right, #24487c, #6e9ee2);
   --text-color: #0b0b0b;
   --text-color-area: rgb(23, 23, 23);
@@ -136,48 +136,10 @@ body.dark-mode {
   --color-icon-theme: black;
 }
 
-header {
-  width: 100%;
-  background-image: var(--header-background);
-  color: white !important;
-  padding: 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-#themeToggle {
-  background-color: transparent;
-  border: none;
+button {
   cursor: pointer;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.icon-theme {
-  width: 24px;
-  height: 24px;
-
-  /* fill: currentColor;
-  transition: opacity 0.3s ease; /* Suaviza el cambio de visibilidad */
-}
-
-.icon-moon {
-  display: none;
-}
-.icon-sun {
-  display: block; /* Muestra el icono de sol */
-}
-
-/* Cuando el body tiene la clase dark-mode: */
-body.dark-mode .icon-sun {
-  display: none; /* Oculta el icono de sol */
-}
-body.dark-mode .icon-moon {
-  display: block; /* Muestra el icono de luna */
-}
 main {
   display: flex;
   flex-direction: column;
@@ -187,7 +149,7 @@ main {
 }
 
 .div_adv {
-  background-color: var(--background-color-div);
+  /* background-color: var(--background-color-div); */
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -199,7 +161,7 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: var(--background-color-div);
+
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -295,7 +257,6 @@ main {
   gap: 20px;
 }
 #file-list p {
-  background-color: var(--background-color-div);
   width: auto;
   text-align: center;
 
@@ -415,7 +376,7 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: var(--background-color-div);
+
   padding: 30px;
   border-radius: 8px;
   margin-top: 30px;
@@ -429,8 +390,8 @@ main {
 }
 
 #textToSpeech {
-  background-color: var(--background-text-area);
-  color: var(--text-color-area);
+  /* background-color: var(--background-text-area); */
+  /* color: var(--text-color-area); */
   outline: none;
   display: flex;
   flex-direction: column;
@@ -481,15 +442,12 @@ main {
 }
 #audioPlayer {
   margin: auto;
-  width:50%;
+  width: 50%;
 }
-
 
 footer p {
   font-family: "Montserrat", serif;
-  
 }
-
 
 @media (max-width: 480px) {
   .selectFormat {
